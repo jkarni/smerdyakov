@@ -19,6 +19,7 @@ dependencies:
   - exceptions == 0.8.*
   - free == 4.12.*
   - transformers == 0.4.*
+  - mtl == 2.2.*
   - text
 
 default-extensions:
@@ -52,7 +53,7 @@ tests:
     main:            Spec.hs
     source-dirs:     test
     dependencies:
-      - hask-deps
+      - smerdyakov
       - hspec > 2 && < 3
       - QuickCheck >= 2.8 && < 2.9
   doctest:

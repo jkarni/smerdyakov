@@ -1,15 +1,14 @@
 module SmerdyakovSpec (spec) where
 
 import Smerdyakov
-import GHC.TypeLits
-import Data.Proxy
+import Smerdyakov.System
+import Control.Monad.Trans.Except
 import Test.Hspec
 
-data FileExists (dir :: Symbol) (s :: Symbol) = FileExists
 
-instance (Needs (Writeable dir), KnownSymbol s) => Gives (FileExists s) where
-  give = writeFile file ""
-    where
-      file = symbolVal (Proxy :: Proxy s)
+spec :: Spec
+spec = describe "sudo" $ do
 
-
+  it "fails if there is no sudo" $ do
+    runExceptT (interpretIO give) `shouldReturn`
+      (Left (ExpectationFailure "Need sudo") :: Either ActionError Sudo)
