@@ -10,6 +10,8 @@ import System.IO
 import Control.Monad.Free
 
 
+-- I no longer remember why I cared enough to have a free monad here...
+--
 -- | Free monad with IO actions that are allowed in defining @give@.
 --
 -- You are quite likely to hit limitations; if so, send a PR adding new
@@ -20,6 +22,7 @@ data ActionF e x
   | HClose Handle x
   | Throw e
   deriving (Functor, Generic)
+
 
 -- | An error that can be thrown in the 'Action' monad.
 data ActionError

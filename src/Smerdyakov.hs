@@ -25,7 +25,12 @@ module Smerdyakov
   , throwA
   , ActionError(..)
   , Action
+
+
+  -- * Re-Exports
+  , Proxy(Proxy)
   ) where
 
 import Smerdyakov.Internal.Class as X
 import Smerdyakov.Internal.FreeIO as X
+import Data.Proxy as X

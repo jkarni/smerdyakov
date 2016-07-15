@@ -22,8 +22,8 @@ class Gives a where
 -- | @make@ gathers, recursively, all the actions needed to fulfill a
 -- requirement or target. The 'Action' can then be run with 'interpretIO', or
 -- inspected.
-make :: forall a r. Gives a => (Needs a => a -> Action r) -> Action r
-make f = unmake (Proxy :: Proxy a) (give >>= f)
+make :: forall a proxy r. Gives a => proxy a -> (Needs a => Action r) -> Action r
+make _ f = unmake (Proxy :: Proxy a) f
 
 -- We can't have @Gives@ be a superclass of @Needs'@ and still have
 -- the representational type role, so we defined the @Needs@ type
