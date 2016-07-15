@@ -1,8 +1,9 @@
 {-# LANGUAGE CPP #-}
-module Smerdyakov.System where
+module Smerdyakov.System
+  {-# WARNING "This is for me, not you." #-}
+  where
 
 import Data.Monoid ((<>))
-import Control.Monad.Error.Class
 import Control.Monad
 import GHC.TypeLits
 import GHC.Generics (Generic)
@@ -24,7 +25,7 @@ instance Gives Sudo where
     -- warnings
     (exitStatus, _, _) <- shellA "sudo -n true"
     case exitStatus of
-      ExitFailure _ -> throwError $ ExpectationFailure "Need sudo"
+      ExitFailure _ -> throwA $ ExpectationFailure "Need sudo"
       ExitSuccess   -> return Sudo
 
 instance Gives KnownOS where
@@ -38,8 +39,8 @@ instance Gives KnownOS where
           "Ubuntu" -> return UbuntuOS
           "Debian" -> return DebianOS
           "Arch"   -> return ArchOS
-          d        -> throwError . ExpectationFailure $ "Unknown distro: " <> d
-      d        -> throwError . ExpectationFailure $ "Unknown distro: " <> d
+          d        -> throwA . ExpectationFailure $ "Unknown distro: " <> d
+      d        -> throwA . ExpectationFailure $ "Unknown distro: " <> d
 
 instance (Needs KnownOS, Needs Sudo) => Gives (Executable "ack") where
   give = do

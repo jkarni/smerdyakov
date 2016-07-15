@@ -22,6 +22,7 @@ module Smerdyakov
   , openFileA
   , hCloseA
   , interpretIO
+  , throwA
   , ActionError(..)
   , Action
   ) where
